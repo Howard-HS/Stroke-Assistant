@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Stroke Assistant</string>
+
     <string name="activity_predefined_text">Predefined Text</string>
+
     <string name="game_title">Name the color of the last ball.</string>
     <string name="yellow">yellow</string>
     <string name="blue">blue</string>
@@ -14,4 +16,6 @@
     <string name="highest">Highest!</string>
     <string name="time_is_up">Time\'s Up!</string>
     <string name="game_ending">Welcome to the end of the world!</string>
+
+    <string name="action_add_predefined_text">Add Predefined Text</string>
 </resources>
