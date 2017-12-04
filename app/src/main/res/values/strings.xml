@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Stroke Assistant</string>
+    <string name="activity_predefined_text">Predefined Text</string>
 </resources>
