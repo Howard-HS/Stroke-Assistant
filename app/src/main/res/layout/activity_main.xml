@@ -24,11 +24,11 @@
         android:text="Feature 2"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnToMemGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Feature 3"/>
+        android:text="@string/mem_game"/>
 
     <Button
         android:id="@+id/button4"

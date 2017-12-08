@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="aad.assignment.strokeassistant">
+    package="aad.assignment.strokeassistant">
 
     <application
         android:allowBackup="true"
@@ -11,14 +11,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".PredefinedTextActivity"
             android:label="@string/activity_predefined_text">
+
+        </activity>
+        <activity android:name=".MemGameActivity"
+            android:label="@string/activity_mem_game">
+
         </activity>
     </application>
 

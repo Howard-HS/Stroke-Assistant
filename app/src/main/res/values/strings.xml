@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Stroke Assistant</string>
     <string name="activity_predefined_text">Predefined Text</string>
+    <string name="game_title">Name the color of the last ball.</string>
+    <string name="yellow">yellow</string>
+    <string name="blue">blue</string>
+    <string name="activity_mem_game">Training Game</string>
+    <string name="mem_game">Training Game</string>
+    <string name="game_score">Score: %1$d %2$s</string>
+    <string name="wrong_please_try_again">Wrong! Please Try Again!</string>
+    <string name="time">Time: %1$d</string>
+    <string name="over">Over!</string>
+    <string name="start">Start!</string>
+    <string name="highest">Highest!</string>
+    <string name="time_is_up">Time\'s Up!</string>
+    <string name="game_ending">Welcome to the end of the world!</string>
 </resources>
