@@ -2,12 +2,16 @@ package aad.assignment.strokeassistant;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.woxthebox.draglistview.DragItem;
@@ -15,10 +19,15 @@ import com.woxthebox.draglistview.DragListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import aad.assignment.strokeassistant.model.PredefinedText;
 
 public class PredefinedTextActivity extends AppCompatActivity {
+    private TextToSpeech tts;
+    private PredefinedTextAdapter adapter;
+    private DragListView listView;
+    private static final int INSERT_POS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,33 +35,53 @@ public class PredefinedTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_predefined_text);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final float dp      = getResources().getDisplayMetrics().density;
+        final int   PADDING = (int) (8 * dp);
 
-        DragListView listView = (DragListView) findViewById(R.id.list_predefined_text);
+        listView = (DragListView) findViewById(R.id.list_predefined_text);
         listView.setLayoutManager(new LinearLayoutManager(this));
+        listView.getRecyclerView().setPadding(PADDING, PADDING, PADDING, PADDING);
+        listView.getRecyclerView().setClipToPadding(false);
 
         //TODO clear all text, string
+        // TODO add string @res
 
         List<PredefinedText> data = new ArrayList<>();
-        data.add(new PredefinedText(1, "A"));
-        data.add(new PredefinedText(2, "B"));
-        data.add(new PredefinedText(3, "C"));
-        data.add(new PredefinedText(4, "D"));
-        data.add(new PredefinedText(5, "D"));
-        data.add(new PredefinedText(6, "D"));
-        data.add(new PredefinedText(7, "D"));
-        data.add(new PredefinedText(8, "D"));
-        data.add(new PredefinedText(9, "D"));
-        data.add(new PredefinedText(10, "D"));
-        data.add(new PredefinedText(11, "D"));
-        data.add(new PredefinedText(12, "D"));
-        data.add(new PredefinedText(13, "D"));
-        data.add(new PredefinedText(14, "D"));
-        data.add(new PredefinedText(15, "D"));
+        data.add(new PredefinedText(0, "An apple"));
+        data.add(new PredefinedText(1, "B high"));
+        data.add(new PredefinedText(2, "I want to sleep"));
+        data.add(new PredefinedText(4, "5"));
+        data.add(new PredefinedText(3, "4"));
+        data.add(new PredefinedText(5, "6"));
 
-        PredefinedTextAdapter adapter = new PredefinedTextAdapter(data);
+        tts = new TextToSpeech(this, status -> {
+            if (status != TextToSpeech.ERROR) tts.setLanguage(Locale.US);
+        });
+
+        adapter = new PredefinedTextAdapter(data, tts);
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
-        listView.setCustomDragItem(new MyDragItem(PredefinedTextActivity.this, R.layout.list_item_predefined_text));
+        listView.setCustomDragItem(new MyDragItem(this, R.layout.list_item_predefined_text));
+    }
+
+    private void addPredefinedText() {
+        AlertDialog.Builder builder    = new AlertDialog.Builder(this);
+        LayoutInflater      inflater   = LayoutInflater.from(this);
+        View                add_dialog = inflater.inflate(R.layout.predefined_text_dialog, null);
+        final EditText      message    = (EditText) add_dialog.findViewById(R.id.dialog_message);
+
+        builder.setView(add_dialog)
+                .setTitle(R.string.dialog_predefined_title)
+                .setCancelable(true)
+                .setPositiveButton(R.string.dialog_predefined_add, (dialog, i) -> {
+                    int            id   = PredefinedText.getNextUniqueID(adapter.getItemList());
+                    PredefinedText text = new PredefinedText(id, message.getText().toString());
+                    adapter.addItem(INSERT_POS, text);
+                    listView.getRecyclerView().smoothScrollToPosition(INSERT_POS);
+                    dialog.cancel();
+                })
+                .setNegativeButton(R.string.dialog_predefined_cancel, (dialog, i) -> dialog.cancel())
+                .create().show();
     }
 
     @Override
@@ -66,10 +95,18 @@ public class PredefinedTextActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) finish();
-        else if (id == R.id.action_add_predefined_text) {
-        }
+        else if (id == R.id.action_add_predefined_text) addPredefinedText();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
     private class MyDragItem extends DragItem {
@@ -85,8 +122,9 @@ public class PredefinedTextActivity extends AppCompatActivity {
         public void onBindDragView(View clickedView,
                                    View dragView) {
             CharSequence text = ((TextView) clickedView.findViewById(R.id.predefined_text)).getText();
-            ((TextView) dragView.findViewById(R.id.predefined_text)).setText(text);
-            ((TextView) dragView.findViewById(R.id.predefined_text)).setTextColor(ContextCompat.getColor(context, android.R.color.holo_blue_bright));
+            TextView     v    = (TextView) dragView.findViewById(R.id.predefined_text);
+            v.setText(text);
+            v.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         }
     }
 }

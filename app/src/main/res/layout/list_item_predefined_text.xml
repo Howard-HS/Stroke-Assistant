@@ -6,10 +6,17 @@
     android:layout_height="wrap_content"
     app:swipeViewId="@+id/predefined_text">
 
-    <TextView
-        android:id="@+id/predefined_text"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="TextView"/>
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/predefined_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.CardView>
 </com.woxthebox.draglistview.swipe.ListSwipeItem>

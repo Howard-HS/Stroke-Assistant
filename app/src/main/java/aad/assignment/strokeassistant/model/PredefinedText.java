@@ -1,10 +1,16 @@
 package aad.assignment.strokeassistant.model;
 
+import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by JohnSiah on 17/12/2017.
  */
 
-public class PredefinedText {
+public class PredefinedText implements Comparable<PredefinedText> {
     private int id;
     private String message;
 
@@ -28,5 +34,23 @@ public class PredefinedText {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public static int getNextUniqueID(List<PredefinedText> data) {
+        int                  counter = 0;
+        List<PredefinedText> temp    = new ArrayList<>(data);
+
+        Collections.sort(temp);
+        for (PredefinedText text : temp) {
+            if (text.getId() != counter) return counter;
+            else counter++;
+        }
+
+        return counter;
+    }
+
+    @Override
+    public int compareTo(@NonNull PredefinedText other) {
+        return id < other.getId() ? -1 : 1;
     }
 }

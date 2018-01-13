@@ -1,5 +1,6 @@
 package aad.assignment.strokeassistant;
 
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,11 @@ import java.util.List;
 import aad.assignment.strokeassistant.model.PredefinedText;
 
 public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, PredefinedTextAdapter.ViewHolder> {
+    private TextToSpeech tts;
 
-    PredefinedTextAdapter(List<PredefinedText> data) {
+    PredefinedTextAdapter(List<PredefinedText> data,
+                          TextToSpeech tts) {
+        this.tts = tts;
         setItemList(data);
     }
 
@@ -28,8 +32,10 @@ public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, Prede
     public void onBindViewHolder(ViewHolder holder,
                                  int position) {
         super.onBindViewHolder(holder, position);
-        PredefinedText obj = mItemList.get(position);
+        final PredefinedText obj = mItemList.get(position);
+
         holder.text.setText(obj.getMessage());
+        holder.text.setOnClickListener(view -> tts.speak(obj.getMessage(), TextToSpeech.QUEUE_FLUSH, null));
     }
 
     @Override
