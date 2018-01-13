@@ -2,6 +2,10 @@ package aad.assignment.strokeassistant.model;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +51,15 @@ public class PredefinedText implements Comparable<PredefinedText> {
         }
 
         return counter;
+    }
+
+    public static String toJson(List<PredefinedText> data) {
+        return new Gson().toJson(data);
+    }
+
+    public static List<PredefinedText> fromJson(String data) {
+        Type type = new TypeToken<List<PredefinedText>>() {}.getType();
+        return new Gson().fromJson(data, type);
     }
 
     @Override

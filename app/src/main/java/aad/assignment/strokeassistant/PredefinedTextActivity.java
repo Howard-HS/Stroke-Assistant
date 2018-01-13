@@ -62,6 +62,13 @@ public class PredefinedTextActivity extends AppCompatActivity {
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
         listView.setCustomDragItem(new MyDragItem(this, R.layout.list_item_predefined_text));
+
+//        String s = PredefinedText.toJson(data);
+//        Log.e("erea", s);
+//
+//        List<PredefinedText> p = PredefinedText.fromJson(s);
+//        for (PredefinedText i : p)
+//            Log.e(i.getId() + "", i.getMessage());
     }
 
     private void addPredefinedText() {
