@@ -18,6 +18,7 @@
     <string name="game_ending">Welcome to the end of the world!</string>
 
     <string name="action_add_predefined_text">Add Predefined Text</string>
+    <string name="no_predefined_text">No predefined text yet.</string>
     <string name="dialog_predefined_title">New predefined text</string>
     <string name="dialog_predefined_add">Add</string>
     <string name="dialog_predefined_cancel">Cancel</string>

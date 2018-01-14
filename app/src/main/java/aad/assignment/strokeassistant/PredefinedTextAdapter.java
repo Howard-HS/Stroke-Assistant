@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.woxthebox.draglistview.DragItemAdapter;
 
@@ -18,12 +19,15 @@ import aad.assignment.strokeassistant.model.PredefinedText;
 public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, PredefinedTextAdapter.ViewHolder> {
     private Context context;
     private TextToSpeech tts;
+    private ViewSwitcher viewSwitcher;
 
     PredefinedTextAdapter(Context context,
                           List<PredefinedText> data,
-                          TextToSpeech tts) {
+                          TextToSpeech tts,
+                          ViewSwitcher viewSwitcher) {
         this.context = context;
         this.tts = tts;
+        this.viewSwitcher = viewSwitcher;
         setItemList(data);
     }
 
@@ -53,6 +57,8 @@ public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, Prede
                         removeItem(position);
                         notifyDataSetChanged();
                         PredefinedText.save(context, getItemList());
+
+                        if (getItemCount() == 0) viewSwitcher.showNext();
                     })
                     .setNegativeButton(R.string.dialog_no, (dialog, i) -> dialog.cancel())
                     .create().show();

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.woxthebox.draglistview.DragListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list_predefined_text"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="aad.assignment.strokeassistant.PredefinedTextActivity"/>
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/vs_predefined_text"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="aad.assignment.strokeassistant.PredefinedTextActivity">
+
+    <com.woxthebox.draglistview.DragListView
+        android:id="@+id/list_predefined_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_predefined_text"
+        android:textColor="@color/colorText"
+        android:textSize="16sp"/>
+</ViewSwitcher>

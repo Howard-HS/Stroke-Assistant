@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.woxthebox.draglistview.DragItem;
 import com.woxthebox.draglistview.DragListView;
@@ -24,8 +25,9 @@ import aad.assignment.strokeassistant.model.PredefinedText;
 
 public class PredefinedTextActivity extends AppCompatActivity {
     private TextToSpeech tts;
-    private PredefinedTextAdapter adapter;
+    private ViewSwitcher viewSwitcher;
     private DragListView listView;
+    private PredefinedTextAdapter adapter;
     private final Context context = PredefinedTextActivity.this;
     private static final int INSERT_POS = 0;
 
@@ -39,19 +41,22 @@ public class PredefinedTextActivity extends AppCompatActivity {
         final int            PADDING = (int) (8 * dp);
         List<PredefinedText> data    = PredefinedText.load(context);
 
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.vs_predefined_text);
+        if (data.isEmpty()) viewSwitcher.showNext();
+
         listView = (DragListView) findViewById(R.id.list_predefined_text);
         listView.setLayoutManager(new LinearLayoutManager(context));
         listView.getRecyclerView().setPadding(PADDING, PADDING, PADDING, PADDING);
         listView.getRecyclerView().setClipToPadding(false);
 
-        //TODO clear all text, string
-        // TODO add string @res
-
         tts = new TextToSpeech(this, status -> {
-            if (status != TextToSpeech.ERROR) tts.setLanguage(Locale.US);
+            if (status != TextToSpeech.ERROR) {
+                tts.setLanguage(Locale.US);
+                tts.setSpeechRate(0.75f);
+            }
         });
 
-        adapter = new PredefinedTextAdapter(context, data, tts);
+        adapter = new PredefinedTextAdapter(context, data, tts, viewSwitcher);
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
         listView.setCustomDragItem(new MyDragItem(context, R.layout.list_item_predefined_text));
@@ -84,6 +89,8 @@ public class PredefinedTextActivity extends AppCompatActivity {
                         adapter.addItem(INSERT_POS, text);
                         listView.getRecyclerView().smoothScrollToPosition(INSERT_POS);
                         PredefinedText.save(context, adapter.getItemList());
+
+                        if (adapter.getItemCount() == 1) viewSwitcher.showNext();
                     }
                 })
                 .setNegativeButton(R.string.dialog_predefined_cancel, (dialog, i) -> dialog.cancel())
