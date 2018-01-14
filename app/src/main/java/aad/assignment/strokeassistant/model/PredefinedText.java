@@ -1,5 +1,8 @@
 package aad.assignment.strokeassistant.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -17,6 +20,7 @@ import java.util.List;
 public class PredefinedText implements Comparable<PredefinedText> {
     private int id;
     private String message;
+    private final static String PERF_KEY = "PERF_PREDEFINED_TEXT";
 
     public PredefinedText(int id,
                           String message) {
@@ -45,6 +49,7 @@ public class PredefinedText implements Comparable<PredefinedText> {
         List<PredefinedText> temp    = new ArrayList<>(data);
 
         Collections.sort(temp);
+
         for (PredefinedText text : temp) {
             if (text.getId() != counter) return counter;
             else counter++;
@@ -53,13 +58,21 @@ public class PredefinedText implements Comparable<PredefinedText> {
         return counter;
     }
 
-    public static String toJson(List<PredefinedText> data) {
-        return new Gson().toJson(data);
+    public static List<PredefinedText> load(Context context) {
+        SharedPreferences    preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String               data        = preferences.getString(PERF_KEY, "");
+        Type                 type        = new TypeToken<List<PredefinedText>>() {}.getType();
+        List<PredefinedText> list        = new Gson().fromJson(data, type);
+        return list != null ? list : new ArrayList<>();
     }
 
-    public static List<PredefinedText> fromJson(String data) {
-        Type type = new TypeToken<List<PredefinedText>>() {}.getType();
-        return new Gson().fromJson(data, type);
+    public static void save(Context context,
+                            List<PredefinedText> data) {
+        SharedPreferences        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor      = preferences.edit();
+
+        editor.putString(PERF_KEY, new Gson().toJson(data));
+        editor.apply();
     }
 
     @Override

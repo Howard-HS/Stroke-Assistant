@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.woxthebox.draglistview.DragItem;
 import com.woxthebox.draglistview.DragListView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,6 +26,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
     private TextToSpeech tts;
     private PredefinedTextAdapter adapter;
     private DragListView listView;
+    private final Context context = PredefinedTextActivity.this;
     private static final int INSERT_POS = 0;
 
     @Override
@@ -35,24 +35,17 @@ public class PredefinedTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_predefined_text);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final float dp      = getResources().getDisplayMetrics().density;
-        final int   PADDING = (int) (8 * dp);
+        final float          dp      = getResources().getDisplayMetrics().density;
+        final int            PADDING = (int) (8 * dp);
+        List<PredefinedText> data    = PredefinedText.load(context);
 
         listView = (DragListView) findViewById(R.id.list_predefined_text);
-        listView.setLayoutManager(new LinearLayoutManager(this));
+        listView.setLayoutManager(new LinearLayoutManager(context));
         listView.getRecyclerView().setPadding(PADDING, PADDING, PADDING, PADDING);
         listView.getRecyclerView().setClipToPadding(false);
 
         //TODO clear all text, string
         // TODO add string @res
-
-        List<PredefinedText> data = new ArrayList<>();
-        data.add(new PredefinedText(0, "An apple"));
-        data.add(new PredefinedText(1, "B high"));
-        data.add(new PredefinedText(2, "I want to sleep"));
-        data.add(new PredefinedText(4, "5"));
-        data.add(new PredefinedText(3, "4"));
-        data.add(new PredefinedText(5, "6"));
 
         tts = new TextToSpeech(this, status -> {
             if (status != TextToSpeech.ERROR) tts.setLanguage(Locale.US);
@@ -61,19 +54,20 @@ public class PredefinedTextActivity extends AppCompatActivity {
         adapter = new PredefinedTextAdapter(data, tts);
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
-        listView.setCustomDragItem(new MyDragItem(this, R.layout.list_item_predefined_text));
-
-//        String s = PredefinedText.toJson(data);
-//        Log.e("erea", s);
-//
-//        List<PredefinedText> p = PredefinedText.fromJson(s);
-//        for (PredefinedText i : p)
-//            Log.e(i.getId() + "", i.getMessage());
+        listView.setCustomDragItem(new MyDragItem(context, R.layout.list_item_predefined_text));
+        listView.setDragListListener(new DragListView.DragListListenerAdapter() {
+            @Override
+            public void onItemDragEnded(int fromPosition,
+                                        int toPosition) {
+                super.onItemDragEnded(fromPosition, toPosition);
+                PredefinedText.save(context, adapter.getItemList());
+            }
+        });
     }
 
     private void addPredefinedText() {
-        AlertDialog.Builder builder    = new AlertDialog.Builder(this);
-        LayoutInflater      inflater   = LayoutInflater.from(this);
+        AlertDialog.Builder builder    = new AlertDialog.Builder(context);
+        LayoutInflater      inflater   = LayoutInflater.from(context);
         View                add_dialog = inflater.inflate(R.layout.predefined_text_dialog, null);
         final EditText      message    = (EditText) add_dialog.findViewById(R.id.dialog_message);
 
@@ -81,11 +75,16 @@ public class PredefinedTextActivity extends AppCompatActivity {
                 .setTitle(R.string.dialog_predefined_title)
                 .setCancelable(true)
                 .setPositiveButton(R.string.dialog_predefined_add, (dialog, i) -> {
-                    int            id   = PredefinedText.getNextUniqueID(adapter.getItemList());
-                    PredefinedText text = new PredefinedText(id, message.getText().toString());
-                    adapter.addItem(INSERT_POS, text);
-                    listView.getRecyclerView().smoothScrollToPosition(INSERT_POS);
-                    dialog.cancel();
+                    String msg = message.getText().toString().trim();
+
+                    if (!msg.isEmpty()) {
+                        int            id   = PredefinedText.getNextUniqueID(adapter.getItemList());
+                        PredefinedText text = new PredefinedText(id, msg);
+
+                        adapter.addItem(INSERT_POS, text);
+                        listView.getRecyclerView().smoothScrollToPosition(INSERT_POS);
+                        PredefinedText.save(context, adapter.getItemList());
+                    }
                 })
                 .setNegativeButton(R.string.dialog_predefined_cancel, (dialog, i) -> dialog.cancel())
                 .create().show();
