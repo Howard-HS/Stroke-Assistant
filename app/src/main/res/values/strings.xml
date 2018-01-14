@@ -22,4 +22,8 @@
     <string name="dialog_predefined_add">Add</string>
     <string name="dialog_predefined_cancel">Cancel</string>
     <string name="dialog_predefined_hint">Eg. I want to eat&#8230;</string>
+    <string name="dialog_predefined_delete_title">Delete predefined text</string>
+    <string name="dialog_predefined_delete_message">Are you sure to delete the text?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
 </resources>

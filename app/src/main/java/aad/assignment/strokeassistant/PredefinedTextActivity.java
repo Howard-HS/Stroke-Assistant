@@ -51,7 +51,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
             if (status != TextToSpeech.ERROR) tts.setLanguage(Locale.US);
         });
 
-        adapter = new PredefinedTextAdapter(data, tts);
+        adapter = new PredefinedTextAdapter(context, data, tts);
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
         listView.setCustomDragItem(new MyDragItem(context, R.layout.list_item_predefined_text));
