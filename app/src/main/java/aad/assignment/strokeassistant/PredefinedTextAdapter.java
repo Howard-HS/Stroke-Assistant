@@ -1,8 +1,11 @@
 package aad.assignment.strokeassistant;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +23,17 @@ public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, Prede
     private Context context;
     private TextToSpeech tts;
     private ViewSwitcher viewSwitcher;
+    private RecyclerView recyclerView;
 
     PredefinedTextAdapter(Context context,
                           List<PredefinedText> data,
                           TextToSpeech tts,
-                          ViewSwitcher viewSwitcher) {
+                          ViewSwitcher viewSwitcher,
+                          RecyclerView recyclerView) {
         this.context = context;
         this.tts = tts;
         this.viewSwitcher = viewSwitcher;
+        this.recyclerView = recyclerView;
         setItemList(data);
     }
 
@@ -45,7 +51,20 @@ public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, Prede
         final PredefinedText obj = mItemList.get(position);
 
         holder.text.setText(obj.getMessage());
-        holder.text.setOnClickListener(view -> tts.speak(obj.getMessage(), TextToSpeech.QUEUE_FLUSH, null));
+        holder.text.setOnClickListener(view -> {
+            tts.speak(obj.getMessage(), TextToSpeech.QUEUE_FLUSH, null);
+            ((TextView) view).setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+            ((TextView) view).setTypeface(null, Typeface.BOLD);
+
+            for (int i = 0; i < getItemCount(); i++) {
+                if (i != position) {
+                    View     v  = recyclerView.findViewHolderForAdapterPosition(i).itemView;
+                    TextView tv = (TextView) v.findViewById(R.id.predefined_text);
+                    tv.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+                    tv.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
 
         holder.btnDelete.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);

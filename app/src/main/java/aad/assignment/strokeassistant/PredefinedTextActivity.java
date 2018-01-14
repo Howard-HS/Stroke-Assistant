@@ -1,9 +1,9 @@
 package aad.assignment.strokeassistant;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,7 +56,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new PredefinedTextAdapter(context, data, tts, viewSwitcher);
+        adapter = new PredefinedTextAdapter(context, data, tts, viewSwitcher, listView.getRecyclerView());
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
         listView.setCustomDragItem(new MyDragItem(context, R.layout.list_item_predefined_text));
@@ -134,10 +134,16 @@ public class PredefinedTextActivity extends AppCompatActivity {
         @Override
         public void onBindDragView(View clickedView,
                                    View dragView) {
-            CharSequence text = ((TextView) clickedView.findViewById(R.id.predefined_text)).getText();
-            TextView     v    = (TextView) dragView.findViewById(R.id.predefined_text);
-            v.setText(text);
-            v.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+            TextView tv1 = (TextView) clickedView.findViewById(R.id.predefined_text);
+            TextView tv2 = (TextView) dragView.findViewById(R.id.predefined_text);
+
+            CharSequence defaultText      = tv1.getText();
+            int          defaultTextColor = tv1.getCurrentTextColor();
+            Typeface     defaultTypeface  = tv1.getTypeface();
+
+            tv2.setText(defaultText);
+            tv2.setTextColor(defaultTextColor);
+            tv2.setTypeface(defaultTypeface);
         }
     }
 }
