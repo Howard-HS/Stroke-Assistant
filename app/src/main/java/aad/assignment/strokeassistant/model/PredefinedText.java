@@ -20,12 +20,14 @@ import java.util.List;
 public class PredefinedText implements Comparable<PredefinedText> {
     private int id;
     private String message;
+    private boolean isSelected;
     private final static String PERF_KEY = "PERF_PREDEFINED_TEXT";
 
     public PredefinedText(int id,
                           String message) {
         this.id = id;
         this.message = message;
+        this.isSelected = false;
     }
 
     public int getId() {
@@ -42,6 +44,14 @@ public class PredefinedText implements Comparable<PredefinedText> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public static int getNextUniqueID(List<PredefinedText> data) {
@@ -63,7 +73,12 @@ public class PredefinedText implements Comparable<PredefinedText> {
         String               data        = preferences.getString(PERF_KEY, "");
         Type                 type        = new TypeToken<List<PredefinedText>>() {}.getType();
         List<PredefinedText> list        = new Gson().fromJson(data, type);
-        return list != null ? list : new ArrayList<>();
+
+        list = list != null ? list : new ArrayList<>();
+
+        for (PredefinedText obj : list) obj.setSelected(false);
+
+        return list;
     }
 
     public static void save(Context context,

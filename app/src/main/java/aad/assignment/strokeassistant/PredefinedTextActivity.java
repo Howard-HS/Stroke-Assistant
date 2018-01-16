@@ -56,7 +56,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new PredefinedTextAdapter(context, data, tts, viewSwitcher, listView.getRecyclerView());
+        adapter = new PredefinedTextAdapter(context, data, tts, viewSwitcher);
         listView.setAdapter(adapter, true);
         listView.setCanDragHorizontally(false);
         listView.setCustomDragItem(new MyDragItem(context, R.layout.list_item_predefined_text));
