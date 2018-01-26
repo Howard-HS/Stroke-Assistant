@@ -30,6 +30,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
     private PredefinedTextAdapter adapter;
     private final Context context = PredefinedTextActivity.this;
     private static final int INSERT_POS = 0;
+    private static final float SPEECH_RATE = 0.75f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class PredefinedTextActivity extends AppCompatActivity {
         tts = new TextToSpeech(this, status -> {
             if (status != TextToSpeech.ERROR) {
                 tts.setLanguage(Locale.US);
-                tts.setSpeechRate(0.75f);
+                tts.setSpeechRate(SPEECH_RATE);
             }
         });
 
