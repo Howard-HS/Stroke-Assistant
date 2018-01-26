@@ -7,4 +7,6 @@
     <color name="minionBlue">#1E6A9F</color>
     <color name="colorGreen">#5bb90d</color>
     <color name="colorWhite">#ffff</color>
+    <color name="colorDivider">#f0f0f0</color>
+    <color name="colorText">#333333</color>
 </resources>
