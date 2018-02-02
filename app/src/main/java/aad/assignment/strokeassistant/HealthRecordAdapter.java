@@ -25,7 +25,7 @@ import aad.assignment.strokeassistant.model.HealthRecord;
  */
 
 public class HealthRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final int VIEW_TYPE_FOOTER = 0,
+    private static final int VIEW_TYPE_FOOTER = 0,
             VIEW_TYPE_CELL = 2,
             BLOOD_PRESSURE_GRAPH = 0,
             BLOOD_SUGAR_GRAPH = 1,
@@ -35,7 +35,9 @@ public class HealthRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private ViewSwitcher viewSwitcher;
 
-    HealthRecordAdapter(ArrayList<HealthRecord> records, Context context, ViewSwitcher viewSwitcher) {
+    HealthRecordAdapter(ArrayList<HealthRecord> records,
+                        Context context,
+                        ViewSwitcher viewSwitcher) {
         this.records = records;
         this.context = context;
         this.viewSwitcher = viewSwitcher;
@@ -71,7 +73,8 @@ public class HealthRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                      int viewType) {
         if (viewType == VIEW_TYPE_CELL) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.health_cards, parent, false);
             return new ItemViewHolder(itemView);
@@ -79,90 +82,72 @@ public class HealthRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.health_graph_button, parent, false);
             return new FooterViewHolder(itemView);
         }
-
-
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder healthViewHolder, int index) {
-
+    public void onBindViewHolder(RecyclerView.ViewHolder healthViewHolder,
+                                 int index) {
 
         if (healthViewHolder instanceof ItemViewHolder) {
-            HealthRecord record = records.get(index);
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-            String date = "Record " + (index + 1) + " From: " + df.format(record.getDate());
+            HealthRecord   record = records.get(index);
+            DateFormat     df     = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+            String         date   = "Record " + (index + 1) + " From: " + df.format(record.getDate());
             ItemViewHolder holder = (ItemViewHolder) healthViewHolder;
             holder.dateTextView.setText(date);
 
-            holder.dateTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    LayoutInflater inflater = LayoutInflater.from(context);
-                    View healthRecordDialog = inflater.inflate(R.layout.health_record_dialog, null);
-                    ((TextView) healthRecordDialog.findViewById(R.id.blood_pressure)).setText(Integer.toString(record.getBloodPressure()));
-                    ((TextView) healthRecordDialog.findViewById(R.id.blood_sugar)).setText(Integer.toString(record.getBloodSugar()));
-                    ((TextView) healthRecordDialog.findViewById(R.id.body_weight)).setText(Float.toString(record.getBodyWeight()));
-                    ((TextView) healthRecordDialog.findViewById(R.id.body_height)).setText(Float.toString(record.getBodyHeight()));
-                    ((TextView) healthRecordDialog.findViewById(R.id.bmi)).setText(Float.toString(record.getBmi()));
-                    ((TextView) healthRecordDialog.findViewById(R.id.date)).setText(date);
+            holder.dateTextView.setOnClickListener(v -> {
+                AlertDialog.Builder builder            = new AlertDialog.Builder(context);
+                LayoutInflater      inflater           = LayoutInflater.from(context);
+                View                healthRecordDialog = inflater.inflate(R.layout.health_record_dialog, null);
+                ((TextView) healthRecordDialog.findViewById(R.id.blood_pressure)).setText(Integer.toString(record.getBloodPressure()));
+                ((TextView) healthRecordDialog.findViewById(R.id.blood_sugar)).setText(Integer.toString(record.getBloodSugar()));
+                ((TextView) healthRecordDialog.findViewById(R.id.body_weight)).setText(Float.toString(record.getBodyWeight()));
+                ((TextView) healthRecordDialog.findViewById(R.id.body_height)).setText(Float.toString(record.getBodyHeight()));
+                ((TextView) healthRecordDialog.findViewById(R.id.bmi)).setText(Float.toString(record.getBmi()));
+                ((TextView) healthRecordDialog.findViewById(R.id.date)).setText(date);
 
-                    builder.setView(healthRecordDialog)
-                            .setTitle(R.string.dialog_view_health_rec_title)
-                            .setCancelable(true)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
-                                dialog.cancel();
-                            })
-                            .create().show();
-                }
+                builder.setView(healthRecordDialog)
+                        .setTitle(R.string.dialog_view_health_rec_title)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
+                            dialog.cancel();
+                        })
+                        .create().show();
             });
 
-            holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    LayoutInflater inflater = LayoutInflater.from(context);
+            holder.buttonDelete.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                    builder
-                            .setTitle(R.string.dialog_delete_health_rec_title)
-                            .setMessage(R.string.dialog_health_delete_message)
-                            .setCancelable(true)
-                            .setPositiveButton(R.string.dialog_yes, (dialog, i) -> {
-                                records.remove(index);
-                                HealthRecord.save(context, records);
-                                notifyDataSetChanged();
-                                if (records.isEmpty()) viewSwitcher.showNext();
-                            })
-                            .create().show();
-                }
+                builder.setTitle(R.string.dialog_delete_health_rec_title)
+                        .setMessage(R.string.dialog_health_delete_message)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.dialog_yes, (dialog, i) -> {
+                            records.remove(index);
+                            HealthRecord.save(context, records);
+                            notifyDataSetChanged();
+                            if (records.isEmpty()) viewSwitcher.showNext();
+                        })
+                        .create().show();
             });
-        }
-        else if (healthViewHolder instanceof FooterViewHolder) {
+        } else if (healthViewHolder instanceof FooterViewHolder) {
             FooterViewHolder holder = (FooterViewHolder) healthViewHolder;
 
-            holder.buttonBmi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, GraphActivity.class);
-                    intent.putExtra(GRAPH_TYPE, BMI_GRAPH);
-                    context.startActivity(intent);
-                }
+            holder.buttonBmi.setOnClickListener(v -> {
+                Intent intent = new Intent(context, GraphActivity.class);
+                intent.putExtra(GRAPH_TYPE, BMI_GRAPH);
+                context.startActivity(intent);
             });
-            holder.buttonBloodSugar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, GraphActivity.class);
-                    intent.putExtra(GRAPH_TYPE, BLOOD_SUGAR_GRAPH);
-                    context.startActivity(intent);
-                }
+
+            holder.buttonBloodSugar.setOnClickListener(v -> {
+                Intent intent = new Intent(context, GraphActivity.class);
+                intent.putExtra(GRAPH_TYPE, BLOOD_SUGAR_GRAPH);
+                context.startActivity(intent);
             });
-            holder.buttonBloodPressure.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, GraphActivity.class);
-                    intent.putExtra(GRAPH_TYPE, BLOOD_PRESSURE_GRAPH);
-                    context.startActivity(intent);
-                }
+
+            holder.buttonBloodPressure.setOnClickListener(v -> {
+                Intent intent = new Intent(context, GraphActivity.class);
+                intent.putExtra(GRAPH_TYPE, BLOOD_PRESSURE_GRAPH);
+                context.startActivity(intent);
             });
         }
     }
@@ -174,7 +159,7 @@ public class HealthRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return records.size()+1;
+        return records.size() + 1;
     }
 
 }

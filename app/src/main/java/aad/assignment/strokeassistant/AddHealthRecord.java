@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ import aad.assignment.strokeassistant.model.HealthRecord;
 
 public class AddHealthRecord extends AppCompatActivity {
 
-    final private int MIN_BLOOD_PRESSURE = 0,
+    private final static int MIN_BLOOD_PRESSURE = 0,
             MAX_BLOOD_PRESSURE = 250,
             MIN_BLOOD_SUGAR = 0,
             MAX_BLOOD_SUGAR = 100,
@@ -27,7 +26,6 @@ public class AddHealthRecord extends AppCompatActivity {
             SHOW_NEXT_VIEW = 1;
     private Context context = AddHealthRecord.this;
     private ArrayList<HealthRecord> records;
-    private ViewSwitcher viewSwitcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,6 @@ public class AddHealthRecord extends AppCompatActivity {
         setContentView(R.layout.activity_add_health_record);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         records = HealthRecord.load(this);
-        viewSwitcher = (ViewSwitcher) findViewById(R.id.vs_health_records);
     }
 
     @Override
@@ -56,21 +53,21 @@ public class AddHealthRecord extends AppCompatActivity {
 
     private void saveHealthRecord() {
         EditText bloodPressure = (EditText) findViewById(R.id.add_blood_pressure);
-        EditText bloodSugar = (EditText) findViewById(R.id.add_blood_sugar);
-        EditText bodyHeight = (EditText) findViewById(R.id.add_body_height);
-        EditText bodyWeight = (EditText) findViewById(R.id.add_body_weight);
+        EditText bloodSugar    = (EditText) findViewById(R.id.add_blood_sugar);
+        EditText bodyHeight    = (EditText) findViewById(R.id.add_body_height);
+        EditText bodyWeight    = (EditText) findViewById(R.id.add_body_weight);
 
         String bPressure = bloodPressure.getText().toString().trim();
-        String bSugar = bloodSugar.getText().toString().trim();
-        String bHeight = bodyHeight.getText().toString().trim();
-        String bWeight = bodyWeight.getText().toString().trim();
+        String bSugar    = bloodSugar.getText().toString().trim();
+        String bHeight   = bodyHeight.getText().toString().trim();
+        String bWeight   = bodyWeight.getText().toString().trim();
 
-        if(bPressure.isEmpty() || bSugar.isEmpty() || bHeight.isEmpty() || bWeight.isEmpty()) {
+        if (bPressure.isEmpty() || bSugar.isEmpty() || bHeight.isEmpty() || bWeight.isEmpty()) {
             Toast.makeText(context, R.string.empty_field, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int bPressureValue, bSugarValue;
+        int   bPressureValue, bSugarValue;
         float bWeightValue, bHeightValue;
 
         bPressureValue = Integer.parseInt(bPressure);
@@ -91,12 +88,13 @@ public class AddHealthRecord extends AppCompatActivity {
             records.add(newRecord);
             HealthRecord.save(this, records);
             Toast.makeText(context, R.string.health_rec_saved, Toast.LENGTH_SHORT).show();
-            if(records.size() == 1) setResult(SHOW_NEXT_VIEW);
+            if (records.size() == 1) setResult(SHOW_NEXT_VIEW);
             finish();
         }
     }
 
-    private void invalidFieldHint(EditText editText, int err) {
+    private void invalidFieldHint(EditText editText,
+                                  int err) {
         editText.setText("");
 
         if (err == BLOOD_PRESSURE_ERROR) editText.setHint(R.string.invalid_blood_pressure);
@@ -104,6 +102,5 @@ public class AddHealthRecord extends AppCompatActivity {
         else editText.setHint(R.string.invalid_weight_height);
 
         editText.setHintTextColor(getResources().getColor(android.R.color.holo_red_light));
-
     }
 }

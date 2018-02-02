@@ -19,7 +19,7 @@ public class HealthRecordActivity extends AppCompatActivity {
     private ArrayList<HealthRecord> records;
     private Context context = HealthRecordActivity.this;
     private ViewSwitcher viewSwitcher;
-    private int SHOW_NEXT_VIEW = 1,
+    private static final int SHOW_NEXT_VIEW = 1,
             FIRST_HEALTH_RECORD = 0;
 
     @Override
@@ -31,14 +31,14 @@ public class HealthRecordActivity extends AppCompatActivity {
 
         viewSwitcher = (ViewSwitcher) findViewById(R.id.vs_health_records);
 
-        if(!records.isEmpty()) viewSwitcher.showNext();
+        if (!records.isEmpty()) viewSwitcher.showNext();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         records = HealthRecord.load(this);
         HealthRecordAdapter adapter = new HealthRecordAdapter(records, context, viewSwitcher);
@@ -50,6 +50,7 @@ public class HealthRecordActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.health_record, menu);
@@ -67,8 +68,10 @@ public class HealthRecordActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == FIRST_HEALTH_RECORD && resultCode == SHOW_NEXT_VIEW) {
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+        if (requestCode == FIRST_HEALTH_RECORD && resultCode == SHOW_NEXT_VIEW) {
             viewSwitcher.showNext();
         }
     }
