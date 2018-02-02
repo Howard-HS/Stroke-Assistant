@@ -18,13 +18,17 @@
         </activity>
         <activity
             android:name=".PredefinedTextActivity"
-            android:label="@string/activity_predefined_text">
-
-        </activity>
-        <activity android:name=".MemGameActivity"
-            android:label="@string/activity_mem_game">
-
-        </activity>
+            android:label="@string/activity_predefined_text" />
+        <activity
+            android:name=".MemGameActivity"
+            android:label="@string/activity_mem_game" />
+        <activity
+            android:name=".HealthRecordActivity"
+            android:label="@string/activity_health_rec" />
+        <activity
+            android:name=".AddHealthRecord"
+            android:label="@string/activity_add_health_records" />
+        <activity android:name=".GraphActivity"></activity>
     </application>
 
 </manifest>

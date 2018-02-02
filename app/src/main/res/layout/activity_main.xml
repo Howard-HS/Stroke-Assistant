@@ -17,11 +17,11 @@
         android:text="@string/activity_predefined_text"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnHealthRec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Feature 2"/>
+        android:text="@string/activity_health_rec"/>
 
     <Button
         android:id="@+id/btnToMemGame"

@@ -21,12 +21,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button btnMemGame = (Button) findViewById(R.id.btnToMemGame);
         btnMemGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MemGameActivity.class));
+            }
+        });
+
+        Button btnHealthRec = (Button) findViewById(R.id.btnHealthRec);
+        btnHealthRec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, HealthRecordActivity.class));
             }
         });
     }

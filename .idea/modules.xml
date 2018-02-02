@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Stroke-Assistant.iml" filepath="$PROJECT_DIR$/Stroke-Assistant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/StrokeAssistant.iml" filepath="$PROJECT_DIR$/StrokeAssistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AAD.iml" filepath="$PROJECT_DIR$/AAD.iml" />
+      <module fileurl="file://D:\Stroke-Assistant\Stroke-Assistant\AAD.iml" filepath="D:\Stroke-Assistant\Stroke-Assistant\AAD.iml" />
+      <module fileurl="file://C:\Users\chooh\Documents\AAD\Stroke-Assistant.iml" filepath="C:\Users\chooh\Documents\AAD\Stroke-Assistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
