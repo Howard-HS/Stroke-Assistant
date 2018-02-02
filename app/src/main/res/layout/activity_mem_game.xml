@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="aad.assignment.strokeassistant.MemGameActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="aad.assignment.strokeassistant.MemGameActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txt_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/game_score"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textColor="@color/colorText"
+                android:textSize="20sp"/>
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txt_timer"
@@ -38,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/time"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textColor="@color/colorText"
+                android:textSize="20sp"/>
         </LinearLayout>
 
 
@@ -49,71 +55,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:visibility="gone"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone"/>
 
 
     <LinearLayout
         android:id="@+id/layout_ball"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/list_view_ball"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:divider="@null"
-                android:dividerHeight="10.0dp"
-                android:scrollbars="none"
-                android:listSelector="@android:color/transparent"
-                android:layout_centerInParent="true"
-                >
-            </ListView>
-        </RelativeLayout>
+        <ListView
+            android:id="@+id/list_view_ball"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="8.0dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="120dp"
         android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8"
-            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_yellow"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/minionYellow"
-                android:textColor="@color/minionBlue"
-                android:textSize="40sp"
-                android:text="@string/yellow" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_yellow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/minionYellow"
+            android:text="@string/yellow"
+            android:textColor="@color/minionBlue"
+            android:textSize="35sp"/>
 
-            <Button
-                android:id="@+id/btn_blue"
-                android:layout_width="match_parent"
-                android:textColor="@color/minionYellow"
-                android:layout_height="match_parent"
-                android:background="@color/minionBlue"
-                android:textSize="40sp"
-                android:text="@string/blue" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/btn_blue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/minionBlue"
+            android:text="@string/blue"
+            android:textColor="@color/minionYellow"
+            android:textSize="35sp"/>
     </LinearLayout>
 </LinearLayout>

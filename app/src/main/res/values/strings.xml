@@ -12,8 +12,8 @@
     <string name="wrong_please_try_again">Wrong! Please Try Again!</string>
     <string name="time">Time: %1$d</string>
     <string name="over">Over!</string>
-    <string name="start">Start!</string>
-    <string name="highest">Highest!</string>
+    <string name="start">Start</string>
+    <string name="high_score">High Score</string>
     <string name="time_is_up">Time\'s Up!</string>
     <string name="game_ending">Welcome to the end of the world!</string>
 
