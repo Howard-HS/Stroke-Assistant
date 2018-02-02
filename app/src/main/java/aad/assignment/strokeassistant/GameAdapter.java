@@ -23,6 +23,8 @@ import java.util.ArrayList;
 //          ok?
 
 public class GameAdapter extends ArrayAdapter<Integer> {
+
+
     private ArrayList<Integer> intList;
     public GameAdapter(Context context, ArrayList<Integer> items)
     {

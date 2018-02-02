@@ -3,15 +3,25 @@ package aad.assignment.strokeassistant;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,12 +50,33 @@ public class MemGameActivity extends AppCompatActivity{
     private static final int TIME_INTERVAL =1000;
     private static final int YELLOW_BALL=0;
     private static final int BLUE_BALL=1;
-
+    private static final int ANIMATION_DURATION=200;
+    MediaPlayer wrongSound;
+    TextView txtHighestScore;
+    Animation anim;
+    Animation anim2;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mem_game);
+        wrongSound=MediaPlayer.create(getApplicationContext(),R.raw.wrong);
+        anim2=AnimationUtils.loadAnimation(
+                this, R.anim.slide_in_top
+        );
+        anim2.setDuration(100);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sharedPreferencesInit();
         generateBalls();
         initView();
@@ -73,7 +104,7 @@ public class MemGameActivity extends AppCompatActivity{
             }
         });
 
-        txtScore.setText(generateHighestScore(highestScore));
+        txtScore.setText(String.format(getString(+R.string.game_score),currentScore,""));
         txtTimer.setText(String.format(getString(R.string.time),GAME_DURATION / 1000));
 
 
@@ -90,8 +121,22 @@ public class MemGameActivity extends AppCompatActivity{
         };
         dialog= new Dialog(MemGameActivity.this);
         dialog.setContentView((R.layout.game_custom_dialog));
-        dialog.setTitle(generateHighestScore(highestScore));
+        dialog.setTitle(R.string.activity_mem_game);
         dialog.setCancelable(false);
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finish();
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        });
+
+        txtHighestScore=(TextView) dialog.findViewById(R.id.highest_score);
+        txtHighestScore.setText(generateHighestScore(highestScore));
+
         final Button start = (Button) dialog.findViewById(R.id.btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,16 +149,17 @@ public class MemGameActivity extends AppCompatActivity{
 
     //stop the game
     private void stopGame() {
-        txtTimer.setText(R.string.over);
+        txtTimer.setText(String.format(getString(R.string.time),0));
+        //txtTimer.setText(R.string.over);
         if(currentScore > highestScore) {
             highestScore = currentScore;
-            dialog.setTitle( generateHighestScore(highestScore));
+            txtHighestScore.setText(generateHighestScore(highestScore));
             updateHighestScore();
         }
         btnYellow.setClickable(false);
         btnBlue.setClickable(false);
-        txtMessage.setText(R.string.time_is_up);
-        showMessage();
+        currentScore=0;
+        txtScore.setText(String.format(getString(+R.string.game_score),currentScore,""));
         dialog.show();
     }
 
@@ -127,9 +173,6 @@ public class MemGameActivity extends AppCompatActivity{
         timer.start();
         btnYellow.setClickable(true);
         btnBlue.setClickable(true);
-
-        txtMessage.setText(R.string.wrong_please_try_again);
-        hideMessage();
         currentScore =0;
         dialog.dismiss();
     }
@@ -185,31 +228,66 @@ public class MemGameActivity extends AppCompatActivity{
 
         boolean correctPrediction = (yellowClicked && isYellowLast) || (blueClicked && isBlueLast);
 
+        if(yellowClicked )
+        {
+            anim= AnimationUtils.loadAnimation(
+                    this, R.anim.slide_out_left
+            );
+        }
+        else{
+            anim= AnimationUtils.loadAnimation(
+                    this, R.anim.slide_out_right
+            );
+
+        }
+        anim.setDuration(ANIMATION_DURATION);
+
         if(adapter.isEmpty())
             showTheEnd();
         else if(correctPrediction)
             updateScore();
-        else
-            showMessage();
+        else if(yellowClicked || blueClicked )
+           alertWrong();
 
     }
 
-    private void showMessage() {
-        txtMessage.setVisibility(View.VISIBLE);
-    }
-    private void hideMessage() {
-        txtMessage.setVisibility(View.INVISIBLE);
+    private void alertWrong() {
+       if(!wrongSound.isPlaying())
+           wrongSound.start();
     }
 
     private void showTheEnd() {
         txtMessage.setText(getText(R.string.game_ending));
-        showMessage();
+        txtMessage.setVisibility(View.VISIBLE);
     }
 
     //update user current score
     private void updateScore() {
-        adapter.removeLastItem();
-        hideMessage();
+
+        final int lastChildPos=listView.getChildCount()-1;
+        listView.getChildAt(lastChildPos).startAnimation(anim );
+        for (int i=0;i<lastChildPos;i++)
+            listView.getChildAt(i).startAnimation(anim2);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                btnYellow.setClickable(false);
+                btnBlue.setClickable(false);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                adapter.removeLastItem();
+                btnYellow.setClickable(true);
+                btnBlue.setClickable(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
         currentScore++;
         txtScore.setText(String.format(getString(+R.string.game_score),currentScore,""));
     }
@@ -227,6 +305,7 @@ public class MemGameActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         if(!dialog.isShowing())
+            stopGame();
             dialog.show();
     }
 }

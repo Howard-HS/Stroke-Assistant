@@ -45,18 +45,11 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/game_title"
-        android:textAlignment="center"
-        android:textSize="20sp" />
-
-    <TextView
         android:id="@+id/txt_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:textSize="20sp" />
 
 
@@ -70,13 +63,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <ListView
                 android:id="@+id/list_view_ball"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:divider="@null"
-                android:dividerHeight="0dp"
+                android:dividerHeight="10.0dp"
+                android:scrollbars="none"
                 android:listSelector="@android:color/transparent"
                 android:layout_centerInParent="true"
                 >
@@ -89,11 +82,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:orientation="vertical">
 
             <Button
@@ -123,9 +115,5 @@
                 android:textSize="40sp"
                 android:text="@string/blue" />
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </LinearLayout>
