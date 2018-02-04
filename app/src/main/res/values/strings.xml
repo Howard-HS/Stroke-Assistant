@@ -73,4 +73,10 @@
     <string name="invalid_minute">Invalid Minute Input</string>
     <string name="reminder_removal_error">Error removing old reminders</string>
 
+    <string name="pre_defined_text">Pre-defined \n Text</string>
+    <string name="training_game">Training \n Game</string>
+    <string name="medicine_reminder">Medicine \n Reminder</string>
+    <string name="health_record">Health \n Record</string>
+    <string name="emergency_call">Emergency \n Call</string>
+
 </resources>
