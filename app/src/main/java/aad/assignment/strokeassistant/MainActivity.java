@@ -36,5 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, HealthRecordActivity.class));
             }
         });
+
+        Button btnReminder = (Button) findViewById(R.id.btnReminder);
+        btnReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ReminderActivity.class));
+            }
+        });
     }
 }

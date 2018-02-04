@@ -56,5 +56,21 @@
     <string name="button_bmi">BMI Graph</string>
     <string name="button_blood_pressure">Blood Pressure Graph</string>
     <string name="button_blood_sugar">Blood Sugar Graph</string>
+    <string name="graph_activity">Health Record Graphs</string>
+
+    <string name="reminder">Reminder</string>
+    <string name="no_reminder">No reminder yet.</string>
+    <string name="activity_reminder">Reminders</string>
+    <string name="reminder_title">Title</string>
+    <string name="reminder_description">Description</string>
+    <string name="reminder_time">Time</string>
+    <string name="reminder_minute">Minute</string>
+    <string name="reminder_title_hint">Eg. Eat medicine</string>
+    <string name="reminder_description_hint">Eg. Eat 2 tablets of medicine</string>
+    <string name="reminder_time_hint">Click here to change the time</string>
+    <string name="add_reminder">Add new reminder</string>
+    <string name="invalid_hour">Invalid Hour Input</string>
+    <string name="invalid_minute">Invalid Minute Input</string>
+    <string name="reminder_removal_error">Error removing old reminders</string>
 
 </resources>

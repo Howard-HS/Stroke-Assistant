@@ -28,7 +28,19 @@
         <activity
             android:name=".AddHealthRecord"
             android:label="@string/activity_add_health_records" />
-        <activity android:name=".GraphActivity"></activity>
+        <activity android:name=".GraphActivity"
+            android:label="@string/graph_activity"/>
+        <activity android:name=".ReminderActivity"
+            android:label="@string/reminder"/>
+        <receiver
+            android:name=".reminder.ReminderReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <service
+            android:name=".reminder.ReminderIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
