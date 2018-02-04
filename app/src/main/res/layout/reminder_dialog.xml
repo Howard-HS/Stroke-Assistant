@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
             android:paddingBottom="8dp"
             android:paddingTop="16dp"
             android:text="@string/reminder_title"
-            android:textSize="16sp" />
+            android:textColor="@color/colorText"
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/reminder_title"
@@ -31,7 +32,7 @@
             android:inputType="textCapSentences"
             android:paddingBottom="16dp"
             android:paddingTop="8dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -42,7 +43,8 @@
             android:paddingBottom="8dp"
             android:paddingTop="16dp"
             android:text="@string/reminder_description"
-            android:textSize="16sp" />
+            android:textColor="@color/colorText"
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/reminder_description"
@@ -56,7 +58,7 @@
             android:inputType="textCapSentences"
             android:paddingBottom="16dp"
             android:paddingTop="8dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -67,7 +69,8 @@
             android:paddingBottom="8dp"
             android:paddingTop="16dp"
             android:text="@string/reminder_time"
-            android:textSize="16sp" />
+            android:textColor="@color/colorText"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/reminder_time"
@@ -77,14 +80,12 @@
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:background="@null"
-            android:text="@string/reminder_time_hint"
             android:inputType="number"
             android:paddingBottom="16dp"
             android:paddingTop="8dp"
-            android:textSize="16sp" />
-
-
+            android:text="@string/reminder_time_hint"
+            android:textColor="#999"
+            android:textSize="16sp"/>
 
     </LinearLayout>
-
 </ScrollView>

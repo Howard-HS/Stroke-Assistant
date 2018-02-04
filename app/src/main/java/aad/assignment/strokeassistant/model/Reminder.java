@@ -22,7 +22,10 @@ public class Reminder {
             id;
     private final static String REMINDER_KEY = "REMINDER";
 
-    public Reminder(String title, String description, int hour, int minute) {
+    public Reminder(String title,
+                    String description,
+                    int hour,
+                    int minute) {
         this.title = title;
         this.description = description;
         this.hour = hour;
@@ -46,11 +49,13 @@ public class Reminder {
         return minute;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public static ArrayList<Reminder> load(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String data = preferences.getString(REMINDER_KEY, "");
+        String            data        = preferences.getString(REMINDER_KEY, "");
         Type type = new TypeToken<ArrayList<Reminder>>() {
         }.getType();
         ArrayList<Reminder> list = new Gson().fromJson(data, type);
@@ -62,8 +67,8 @@ public class Reminder {
 
     public static void save(Context context,
                             ArrayList<Reminder> data) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor      = preferences.edit();
 
         editor.putString(REMINDER_KEY, new Gson().toJson(data));
         editor.apply();

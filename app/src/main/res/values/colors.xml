@@ -11,4 +11,5 @@
     <color name="colorWhite">#ffff</color>
     <color name="colorDivider">#f0f0f0</color>
     <color name="colorText">#333333</color>
+    <color name="colorGray">#999999</color>
 </resources>

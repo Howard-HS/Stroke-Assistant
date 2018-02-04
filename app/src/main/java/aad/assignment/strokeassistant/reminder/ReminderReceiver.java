@@ -18,18 +18,18 @@ import aad.assignment.strokeassistant.ReminderActivity;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
-    private final String REMINDER_TITLE = "REMINDER_TITLE",
-            REMINDER_DESCRIPTION = "REMINDER_DESCRIPTION",
-            REMINDER_ID = "REMINDER_ID";
+    private static final String REMINDER_TITLE = "REMINDER_TITLE",
+            REMINDER_DESCRIPTION = "REMINDER_DESCRIPTION";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context,
+                          Intent intent) {
         Notification.Builder mBuilder =
                 new Notification.Builder(context)
                         .setSmallIcon(R.drawable.blue_ball)
                         .setContentTitle(intent.getExtras().getString(REMINDER_TITLE))
                         .setContentText(intent.getExtras().getString(REMINDER_DESCRIPTION));
-        Intent resultIntent = new Intent(context, ReminderActivity.class);
+        Intent           resultIntent = new Intent(context, ReminderActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
