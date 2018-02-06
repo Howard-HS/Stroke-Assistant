@@ -17,7 +17,7 @@ public class AddHealthRecord extends AppCompatActivity {
     private final static int MIN_BLOOD_PRESSURE = 0,
             MAX_BLOOD_PRESSURE = 250,
             MIN_BLOOD_SUGAR = 0,
-            MAX_BLOOD_SUGAR = 100,
+            MAX_BLOOD_SUGAR = 200,
             MIN_WEIGHT = 0,
             MIN_HEIGHT = 0,
             BLOOD_PRESSURE_ERROR = 0,
@@ -53,36 +53,35 @@ public class AddHealthRecord extends AppCompatActivity {
 
     private void saveHealthRecord() {
         EditText bloodPressure = (EditText) findViewById(R.id.add_blood_pressure);
-        EditText bloodSugar    = (EditText) findViewById(R.id.add_blood_sugar);
-        EditText bodyHeight    = (EditText) findViewById(R.id.add_body_height);
-        EditText bodyWeight    = (EditText) findViewById(R.id.add_body_weight);
+        EditText bloodSugar = (EditText) findViewById(R.id.add_blood_sugar);
+        EditText bodyHeight = (EditText) findViewById(R.id.add_body_height);
+        EditText bodyWeight = (EditText) findViewById(R.id.add_body_weight);
 
         String bPressure = bloodPressure.getText().toString().trim();
-        String bSugar    = bloodSugar.getText().toString().trim();
-        String bHeight   = bodyHeight.getText().toString().trim();
-        String bWeight   = bodyWeight.getText().toString().trim();
+        String bSugar = bloodSugar.getText().toString().trim();
+        String bHeight = bodyHeight.getText().toString().trim();
+        String bWeight = bodyWeight.getText().toString().trim();
 
         if (bPressure.isEmpty() || bSugar.isEmpty() || bHeight.isEmpty() || bWeight.isEmpty()) {
             Toast.makeText(context, R.string.empty_field, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int   bPressureValue, bSugarValue;
+        int bPressureValue, bSugarValue;
         float bWeightValue, bHeightValue;
 
         bPressureValue = Integer.parseInt(bPressure);
         bSugarValue = Integer.parseInt(bSugar);
         bWeightValue = Float.parseFloat(bWeight);
         bHeightValue = Float.parseFloat(bHeight);
-
-        if (bPressureValue < MIN_BLOOD_PRESSURE || bPressureValue > MAX_BLOOD_PRESSURE)
-            invalidFieldHint(bloodPressure, BLOOD_PRESSURE_ERROR);
-        else if (bSugarValue < MIN_BLOOD_SUGAR || bSugarValue > MAX_BLOOD_SUGAR)
-            invalidFieldHint(bloodSugar, BLOOD_SUGAR_ERROR);
-        else if (bWeightValue < MIN_WEIGHT)
+        if (bWeightValue < MIN_WEIGHT)
             invalidFieldHint(bodyHeight, WEIGHT_HEIGHT_ERROR);
         else if (bHeightValue < MIN_HEIGHT)
             invalidFieldHint(bodyWeight, WEIGHT_HEIGHT_ERROR);
+        else if (bSugarValue < MIN_BLOOD_SUGAR || bSugarValue > MAX_BLOOD_SUGAR)
+            invalidFieldHint(bloodSugar, BLOOD_SUGAR_ERROR);
+        else if (bPressureValue < MIN_BLOOD_PRESSURE || bPressureValue > MAX_BLOOD_PRESSURE)
+            invalidFieldHint(bloodPressure, BLOOD_PRESSURE_ERROR);
         else {
             HealthRecord newRecord = new HealthRecord(bPressureValue, bSugarValue, bWeightValue, bHeightValue);
             records.add(newRecord);

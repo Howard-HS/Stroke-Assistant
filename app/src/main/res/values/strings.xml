@@ -67,9 +67,9 @@
     <string name="reminder_minute">Minute</string>
     <string name="reminder_title_hint">Eg. Eat medicine</string>
     <string name="reminder_description_hint">Eg. Eat 2 tablets of medicine</string>
-    <string name="reminder_time_hint">Click here to change the time</string>
     <string name="add_reminder">Add new reminder</string>
     <string name="invalid_hour">Invalid Hour Input</string>
+    <string name="reminder_time_hint">Click here to change the time</string>
     <string name="invalid_minute">Invalid Minute Input</string>
     <string name="reminder_removal_error">Error removing old reminders</string>
 
