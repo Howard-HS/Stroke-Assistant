@@ -13,4 +13,5 @@
     <color name="colorDivider">#f0f0f0</color>
     <color name="colorText">#333333</color>
     <color name="colorGray">#999999</color>
+    <color name="colorOverlay">#cdffffff</color>
 </resources>

@@ -73,23 +73,23 @@ public class ReminderActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) finish();
-        else if (id == R.id.action_add_health_record) addHealthRecord();
+        else if (id == R.id.action_add_health_record) addReminder();
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void addHealthRecord() {
-        AlertDialog.Builder builder     = new AlertDialog.Builder(context);
-        LayoutInflater      inflater    = LayoutInflater.from(context);
-        View                add_dialog  = inflater.inflate(R.layout.reminder_dialog, null);
-        EditText            title       = (EditText) add_dialog.findViewById(R.id.reminder_title);
-        EditText            description = (EditText) add_dialog.findViewById(R.id.reminder_description);
-        TextView            time        = (TextView) add_dialog.findViewById(R.id.reminder_time);
+    private void addReminder() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View add_dialog = inflater.inflate(R.layout.reminder_dialog, null);
+        EditText title = (EditText) add_dialog.findViewById(R.id.reminder_title);
+        EditText description = (EditText) add_dialog.findViewById(R.id.reminder_description);
+        TextView time = (TextView) add_dialog.findViewById(R.id.reminder_time);
 
         time.setOnClickListener(v -> {
-            Calendar         mcurrentTime = Calendar.getInstance();
-            int              hour         = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int              minute       = mcurrentTime.get(Calendar.MINUTE);
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
             TimePickerDialog mTimePicker;
             mTimePicker = new TimePickerDialog(context,
                     (timePicker, selectedHour, selectedMinute) -> time.setText(String.format("%d:%d", selectedHour, selectedMinute)),
@@ -102,14 +102,14 @@ public class ReminderActivity extends AppCompatActivity {
                 .setTitle(R.string.add_reminder)
                 .setCancelable(true)
                 .setPositiveButton(R.string.dialog_predefined_add, (dialog, i) -> {
-                    String titleValue       = title.getText().toString().trim();
+                    String titleValue = title.getText().toString().trim();
                     String descriptionValue = description.getText().toString().trim();
-                    String timeValue        = time.getText().toString().trim();
+                    String timeValue = time.getText().toString().trim();
 
                     if (!titleValue.isEmpty() && !descriptionValue.isEmpty() && timeValue.contains(":")) {
                         String[] splitTime = timeValue.split(":");
-                        String   hour      = splitTime[0];
-                        String   minute    = splitTime[1];
+                        String hour = splitTime[0];
+                        String minute = splitTime[1];
 
                         Reminder reminder = new Reminder(titleValue, descriptionValue, Integer.parseInt(hour), Integer.parseInt(minute));
                         reminders.add(reminder);
@@ -135,8 +135,8 @@ public class ReminderActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, reminder.getMinute());
         calendar.set(Calendar.SECOND, 0);
 
-        long   notificationTime = calendar.getTimeInMillis();
-        Intent intentAlarm      = new Intent(this, ReminderReceiver.class);
+        long notificationTime = calendar.getTimeInMillis();
+        Intent intentAlarm = new Intent(this, ReminderReceiver.class);
         intentAlarm.putExtra(REMINDER_TITLE, reminder.getTitle());
         intentAlarm.putExtra(REMINDER_DESCRIPTION, reminder.getDescription());
         intentAlarm.putExtra(REMINDER_ID, reminder.getId());

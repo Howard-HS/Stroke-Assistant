@@ -36,11 +36,10 @@
             android:name=".reminder.ReminderReceiver"
             android:enabled="true"
             android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
         </receiver>
-        <service
-            android:name=".reminder.ReminderIntentService"
-            android:exported="false" >
-        </service>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package aad.assignment.strokeassistant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnPredefinedText = (Button) findViewById(R.id.btnPredefinedText);
+        CardView btnPredefinedText = (CardView) findViewById(R.id.btnPredefinedText);
         btnPredefinedText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnMemGame = (Button) findViewById(R.id.btnToMemGame);
+        CardView btnMemGame = (CardView) findViewById(R.id.btnToMemGame);
         btnMemGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnHealthRec = (Button) findViewById(R.id.btnHealthRec);
+        CardView btnHealthRec = (CardView) findViewById(R.id.btnHealthRec);
         btnHealthRec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnReminder = (Button) findViewById(R.id.btnReminder);
+        CardView btnReminder = (CardView) findViewById(R.id.btnReminder);
         btnReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
