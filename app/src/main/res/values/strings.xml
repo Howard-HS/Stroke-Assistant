@@ -57,7 +57,6 @@
     <string name="button_blood_pressure">Blood Pressure Graph</string>
     <string name="button_blood_sugar">Blood Sugar Graph</string>
     <string name="graph_activity">Health Record Graphs</string>
-
     <string name="reminder">Reminder</string>
     <string name="no_reminder">No reminder yet.</string>
     <string name="activity_reminder">Reminders</string>
@@ -72,11 +71,22 @@
     <string name="reminder_time_hint">Click here to change the time</string>
     <string name="invalid_minute">Invalid Minute Input</string>
     <string name="reminder_removal_error">Error removing old reminders</string>
-
     <string name="pre_defined_text">Predefined \n Text</string>
     <string name="training_game">Training \n Game</string>
     <string name="medicine_reminder">Medicine \n Reminder</string>
     <string name="health_record">Health \n Record</string>
     <string name="emergency_call">Emergency \n Call</string>
+    <string name="activity_emergency_call">Emergency Call</string>
+    <string name="activity_new_emergency_contact">New Contact</string>
+    <string name="static_text_contact_person">Contact Person</string>
+    <string name="static_text_contact_number">Contact Number</string>
+    <string name="static_text_contact_address_optional">Contact Address (Optional)</string>
+    <string name="action_save_contact">Save</string>
+    <string name="static_text_no_emergency_contacts">No emergency contacts yet</string>
+    <string name="static_text_contact_address_display">Contact Address</string>
+    <string name="static_text_default_emergency_contact" >Default Emergency Contact</string>
+    <string name="contact_person_hint">E.g. Howard</string>
+    <string name="contact_number_hint">E.g. 0123456789</string>
+    <string name="contact_address_hint">E.g. No.1, Persiaran Bukit Utama, Bandar Utama, 47800 Petaling Jaya,  Selangor Darul Ehsan, Malaysia.</string>
 
 </resources>

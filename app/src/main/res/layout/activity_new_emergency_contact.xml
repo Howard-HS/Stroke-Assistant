@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:text="@string/static_text_contact_person"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/field_contact_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@null"
+            android:hint="@string/contact_person_hint"
+            android:inputType="text|textPersonName"
+            android:paddingBottom="16dp"
+            android:paddingTop="8dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:text="@string/static_text_contact_number"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/field_contact_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@null"
+            android:hint="@string/contact_number_hint"
+            android:inputType="phone"
+            android:paddingBottom="16dp"
+            android:paddingTop="8dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:text="@string/static_text_contact_address_optional"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/field_contact_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/contact_address_hint"
+            android:maxLines="4"
+            android:minLines="4"
+            android:paddingBottom="16dp"
+            android:paddingTop="8dp"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>

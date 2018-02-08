@@ -39,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         CardView btnReminder = (CardView) findViewById(R.id.btnReminder);
-        btnReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ReminderActivity.class));
-            }
+        btnReminder.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, ReminderActivity.class));
+        });
+
+        CardView btnEmergencyCall = (CardView) findViewById(R.id.btnEmergencyCall);
+        btnEmergencyCall.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, EmergencyCallActivity.class));
         });
     }
 }

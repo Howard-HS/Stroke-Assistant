@@ -56,7 +56,7 @@ public class PredefinedTextAdapter extends DragItemAdapter<PredefinedText, Prede
 
         holder.text.setText(obj.getMessage());
         holder.text.setOnClickListener(view -> {
-            tts.speak(obj.getMessage(), TextToSpeech.QUEUE_FLUSH, null);
+            tts.speak(obj.getMessage(), TextToSpeech.QUEUE_FLUSH, null, null);
 
             for (PredefinedText o : mItemList) o.setSelected(false);
             obj.setSelected(true);

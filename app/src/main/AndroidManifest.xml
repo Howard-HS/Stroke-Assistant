@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="aad.assignment.strokeassistant">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,9 +38,14 @@
             android:enabled="true"
             android:exported="false" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+               <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <activity
+            android:name=".EmergencyCallActivity"
+            android:label="@string/activity_emergency_call" />
+        <activity android:name=".NewEmergencyContactActivity"
+            android:label="@string/activity_new_emergency_contact"/>
     </application>
 
 </manifest>

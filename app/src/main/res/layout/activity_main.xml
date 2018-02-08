@@ -86,7 +86,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/btnHealthRec"
+            android:id="@+id/ btnReminder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
@@ -118,7 +118,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/btnReminder"
+            android:id="@+id/btnHealthRec"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
